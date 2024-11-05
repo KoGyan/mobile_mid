@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String API_URL = "http://10.0.2.2:8000/api_root/Post/"; // 서버 API 주소
     public myPictureView myPictureView;
     File[] imageFiles = new File[0];
+    private Button btnHide, btnShow;
 
     String imageFname;
     @Override
@@ -56,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
         // 어댑터 초기화 및 RecyclerView에 설정
         adapter = new ImageAdapter(imageList);
         recyclerView.setAdapter(adapter);
-
+        btnHide = findViewById(R.id.imagehide);
+        btnShow = findViewById(R.id.imageseen);
         myPictureView = findViewById(R.id.myPictureView1);
 
         Button btnLoad = findViewById(R.id.btn_load);
@@ -80,6 +82,23 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "이미지가 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
                     Log.e("MainActivity", "이미지 파일이 없습니다: " + imageFile.getAbsolutePath());
                 }
+            }
+        });
+
+        btnHide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recyclerView.setVisibility(View.GONE);
+                myPictureView.setVisibility(View.GONE);
+            }
+        });
+
+        // 이미지 보기 버튼 클릭 이벤트
+        btnShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recyclerView.setVisibility(View.VISIBLE);
+                myPictureView.setVisibility(View.VISIBLE);
             }
         });
     }
